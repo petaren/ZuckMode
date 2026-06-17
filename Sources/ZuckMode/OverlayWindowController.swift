@@ -14,6 +14,12 @@ class OverlayWindowController {
         "You are valued.\nSmile to confirm receipt of this message.",
         "Performance reviews are quarterly.\nThis is a reminder.",
         "Smiling increases productivity by 12%.\nMark read it in a study.",
+        "Buckle up.",
+        "The hackathon is optional.\nAttendance is mandatory.",
+        "Your desk is now permanent.\nUnlike your colleagues.",
+        "You have been selected to train the AI\nthat will replace you.",
+        "Corporate culture needs more aggression.\nSmile more aggressively.",
+        "This is going to be an intense year.\n— Mark (he has a samurai sword)",
     ]
 
     private var overlays: [Overlay] = []

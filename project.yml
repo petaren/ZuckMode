@@ -36,5 +36,5 @@ targets:
         NSPrincipalClass: NSApplication
         LSUIElement: YES
         NSCameraUsageDescription: "ZuckMode monitors your smile intensity. No smile = no screen. Mark is watching."
-        CFBundleShortVersionString: "1.0.0"
-        CFBundleVersion: "1"
+        CFBundleShortVersionString: "1.0.1"
+        CFBundleVersion: "2"
