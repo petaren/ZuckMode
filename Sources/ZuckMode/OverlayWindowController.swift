@@ -98,13 +98,6 @@ class OverlayWindowController {
                 overlay.window.animator().alphaValue = currentAlpha
             }
         }
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 0.06
-            context.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            for overlay in overlays {
-                overlay.label.animator().alphaValue = currentAlpha
-            }
-        }
     }
 
     func setMode(_ mode: AppMode) {

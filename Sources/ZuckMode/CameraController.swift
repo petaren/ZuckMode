@@ -26,7 +26,7 @@ class CameraController: NSObject {
     }
 
     func stop() {
-        session?.stopRunning()
+        queue.sync { session?.stopRunning() }
     }
 
     private func setupAndStart() {
