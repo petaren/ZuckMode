@@ -14,7 +14,6 @@ class OverlayWindowController {
         "You are valued.\nSmile to confirm receipt of this message.",
         "Performance reviews are quarterly.\nThis is a reminder.",
         "Smiling increases productivity by 12%.\nMark read it in a study.",
-        "Buckle up.",
         "The hackathon is optional.\nAttendance is mandatory.",
         "Your desk is now permanent.\nUnlike your colleagues.",
         "You have been selected to train the AI\nthat will replace you.",
@@ -26,7 +25,6 @@ class OverlayWindowController {
     private var currentAlpha: CGFloat = 0.0
     private var currentMode: AppMode = .encouragement
     private var currentEncouragement = ""
-    private var wasSmiling = false
 
     init() {
         currentEncouragement = OverlayWindowController.encouragements[0]
@@ -87,16 +85,14 @@ class OverlayWindowController {
     }
 
     func update(smileScore: Float) {
-        let isSmiling = smileScore > 0.5
-        if currentMode == .encouragement && !wasSmiling && isSmiling {
-            // Screen is clearing — rotate to a fresh message for the next dark phase
+        let newAlpha = CGFloat(1.0 - smileScore)
+        // Swap message at the moment the overlay starts reappearing, while it's still invisible
+        if currentMode == .encouragement && currentAlpha < 0.05 && newAlpha >= 0.05 {
             let choices = Self.encouragements.filter { $0 != currentEncouragement }
             currentEncouragement = choices.randomElement() ?? currentEncouragement
             applyMode()
         }
-        wasSmiling = isSmiling
-
-        currentAlpha = CGFloat(1.0 - smileScore)
+        currentAlpha = newAlpha
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.15
             context.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
