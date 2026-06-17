@@ -10,11 +10,13 @@
 		3FC727238DD3DE724C0884D1 /* OverlayWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F68024F04A45BBDA8E5F95 /* OverlayWindowController.swift */; };
 		737068213FABCCC657278EA7 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C8121F7FA72CDB256D654 /* CameraController.swift */; };
 		CE1EF4B0D39ECB7BDB3A6A70 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 857CA3B99D2266E0C5AA9E54 /* main.swift */; };
+		D8678FD9287027197B05CDC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E888D19F61D1738052C8A48 /* Assets.xcassets */; };
 		E8061070044BF4451C753923 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E66C39FEEBC15248DD71E93 /* StatusBarController.swift */; };
 		F3A84412010C3374FD5A2738 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2770DEC9E79E6C024B677B9 /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E888D19F61D1738052C8A48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E66C39FEEBC15248DD71E93 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
 		5EB87490A170F323762A1703 /* ZuckMode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZuckMode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F68024F04A45BBDA8E5F95 /* OverlayWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWindowController.swift; sourceTree = "<group>"; };
@@ -28,6 +30,7 @@
 			isa = PBXGroup;
 			children = (
 				E2770DEC9E79E6C024B677B9 /* AppDelegate.swift */,
+				2E888D19F61D1738052C8A48 /* Assets.xcassets */,
 				947C8121F7FA72CDB256D654 /* CameraController.swift */,
 				857CA3B99D2266E0C5AA9E54 /* main.swift */,
 				60F68024F04A45BBDA8E5F95 /* OverlayWindowController.swift */,
@@ -68,6 +71,7 @@
 			buildConfigurationList = 7546E022082B96C660A90EE8 /* Build configuration list for PBXNativeTarget "ZuckMode" */;
 			buildPhases = (
 				14D8F694DE8E241605F8190B /* Sources */,
+				62DC3A59572E7F0CB5E60CD8 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -109,6 +113,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		62DC3A59572E7F0CB5E60CD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8678FD9287027197B05CDC4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		14D8F694DE8E241605F8190B /* Sources */ = {
@@ -158,6 +173,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -225,6 +241,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -254,11 +271,14 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_REQUIRED = YES;
+				CODE_SIGN_ENTITLEMENTS = ZuckMode/ZuckMode.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_HARDENED_RUNTIME = NO;
+				DEVELOPMENT_TEAM = B3J92VMY3K;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

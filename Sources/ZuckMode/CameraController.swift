@@ -4,23 +4,25 @@ import CoreImage
 class CameraController: NSObject {
     private var session: AVCaptureSession?
     private let detector: CIDetector?
-    private var smileScore: Float = 0
     private let onUpdate: (Float) -> Void
     private let queue = DispatchQueue(label: "com.petar.ZuckMode.camera", qos: .userInitiated)
+
+    // Asymmetric EMA: rises fast on detections, falls slowly on misses
+    private var ema: Float = 1.0  // start bright
+    private let riseAlpha: Float = 0.20   // fast response when smile detected
+    private let fallAlpha: Float = 0.05   // slow decay when not detected — tolerates gaps
+    private let detectionNorm: Float = 0.50  // ~50% detection rate → full brightness
 
     init(onUpdate: @escaping (Float) -> Void) {
         self.onUpdate = onUpdate
         detector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [
-            CIDetectorAccuracy: CIDetectorAccuracyLow
+            CIDetectorAccuracy: CIDetectorAccuracyHigh
         ])
         super.init()
     }
 
-    func requestAccessAndStart() {
-        AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
-            guard granted else { return }
-            self?.queue.async { self?.setupAndStart() }
-        }
+    func start() {
+        queue.async { self.setupAndStart() }
     }
 
     func stop() {
@@ -55,13 +57,10 @@ extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
         let image = CIImage(cvPixelBuffer: pixelBuffer)
         let features = detector?.features(in: image, options: [CIDetectorSmile: true]) as? [CIFaceFeature] ?? []
-        let isSmiling = features.first?.hasSmile ?? false
 
-        // Rise fast (0.3/frame), fall slow (0.04/frame) — forgives brief non-smiles
-        let target: Float = isSmiling ? 1.0 : 0.0
-        let rate: Float = target > smileScore ? 0.3 : 0.04
-        smileScore += (target - smileScore) * rate
-
-        onUpdate(smileScore)
+        let detected: Float = (features.first?.hasSmile ?? false) ? 1.0 : 0.0
+        let alpha = detected > ema ? riseAlpha : fallAlpha
+        ema += (detected - ema) * alpha
+        onUpdate(min(1.0, ema / detectionNorm))
     }
 }

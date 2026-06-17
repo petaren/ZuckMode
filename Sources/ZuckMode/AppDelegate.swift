@@ -1,20 +1,32 @@
 import Cocoa
+import AVFoundation
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusBarController: StatusBarController!
-    private var cameraController: CameraController!
-    private var overlayController: OverlayWindowController!
+    private var cameraController: CameraController?
+    private var overlayController: OverlayWindowController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        overlayController = OverlayWindowController()
         statusBarController = StatusBarController()
-        cameraController = CameraController { [weak self] smileScore in
+
+        // Request permission first — overlays only appear after, so the dialog is always visible.
+        AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
             DispatchQueue.main.async {
-                self?.overlayController.update(smileScore: smileScore)
-                self?.statusBarController.update(smileScore: smileScore)
+                guard let self else { return }
+                self.overlayController = OverlayWindowController()
+                self.statusBarController.onModeChange = { [weak self] mode in
+                    self?.overlayController?.setMode(mode)
+                }
+                guard granted else { return }
+                self.cameraController = CameraController { [weak self] smileScore in
+                    DispatchQueue.main.async {
+                        self?.overlayController?.update(smileScore: smileScore)
+                        self?.statusBarController?.update(smileScore: smileScore)
+                    }
+                }
+                self.cameraController?.start()
             }
         }
-        cameraController.requestAccessAndStart()
     }
 
     func applicationWillTerminate(_ notification: Notification) {
