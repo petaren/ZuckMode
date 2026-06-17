@@ -1,5 +1,9 @@
 # ZuckMode
 
+<p align="center">
+  <img src="Sources/ZuckMode/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png" width="128" alt="ZuckMode icon" />
+</p>
+
 > *"I require that you perform adequate happiness at all times."*
 > — Mark Zuckerberg (paraphrased, but you know he means it)
 
@@ -41,7 +45,7 @@ Inspired by Mark Zuckerberg's reported workplace mandate that employees be relen
 ## Build & run
 
 ```bash
-git clone https://github.com/your-username/ZuckMode
+git clone https://github.com/petaren/ZuckMode
 cd ZuckMode
 xcodegen generate
 xcodebuild -scheme ZuckMode -configuration Debug \
