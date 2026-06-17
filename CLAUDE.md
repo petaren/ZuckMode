@@ -28,7 +28,8 @@ xcodebuild -exportArchive -archivePath build/ZuckMode.xcarchive \
 
 Notarize with stored Keychain profile (`notarytool-zuckmode`):
 ```bash
-xcrun notarytool submit build/export/ZuckMode.app --keychain-profile notarytool-zuckmode --wait
+ditto -c -k --keepParent build/export/ZuckMode.app build/ZuckMode-<version>.zip
+xcrun notarytool submit build/ZuckMode-<version>.zip --keychain-profile "petar-developer-id" --wait
 xcrun stapler staple build/export/ZuckMode.app
 ```
 
